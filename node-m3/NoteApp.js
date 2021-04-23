@@ -1,4 +1,3 @@
-const gn = require("./notes");
+const chalk = require("chalk");
 
-const note = gn();
-console.log(note);
+console.log(chalk.bold.red("Hello World!"));
