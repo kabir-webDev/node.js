@@ -1,8 +1,16 @@
 const request = require("request");
+const express = require("express");
 
-const url =
-  "http://api.weatherstack.com/current?access_key=8bef2d752753a8ff0527696ef477d8ef&query=Dhaka";
+const app = express();
 
-request({ url: url, json: true }, (error, res) => {
-  console.log(res.body.current);
+app.get("", (req, res) => {
+  res.send("This is Homepage");
+});
+
+app.get("/about", (req, res) => {
+  res.send("This is all about us :D");
+});
+
+app.listen(1111, () => {
+  console.log("App is up and runnig");
 });
