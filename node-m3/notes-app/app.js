@@ -1,15 +1,10 @@
-const request = require("request");
 const express = require("express");
+const path = require("path");
+
+const PathDirectory = path.join(__dirname, "./Public");
 
 const app = express();
-
-app.get("", (req, res) => {
-  res.send("This is Homepage");
-});
-
-app.get("/about", (req, res) => {
-  res.send("This is all about us :D");
-});
+app.use(express.static(PathDirectory));
 
 app.listen(1111, () => {
   console.log("App is up and runnig");
