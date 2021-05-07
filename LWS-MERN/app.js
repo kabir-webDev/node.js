@@ -1,25 +1,18 @@
 const express = require("express");
+
 const app = express();
-const dotenv = require("dotenv");
 
-dotenv.config({ path: "./config.env" });
-require("./conn");
-
-const PORT = process.env.PORT;
-
-const middleware = (req, res, next) => {
-  console.log("Middleware Checking");
-  next();
-};
+app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("In the langs In the baga buga");
+  res.send("This is home page");
 });
 
-app.get("/about", middleware, (req, res) => {
-  res.send("This is About Page");
+app.post("/", (req, res) => {
+  console.log(req.body.name);
+  res.send("This is post Man! ");
 });
 
-app.listen(PORT, () => {
-  console.log(`Up and running at ${PORT}`);
+app.listen(1111, () => {
+  console.log("Server is running Bro");
 });
