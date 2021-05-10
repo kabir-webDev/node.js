@@ -1,24 +1,25 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const app = express();
-const adminRoute = express.Router();
 
 app.use(express.json());
 
-adminRoute.get("/dashboard", (req, res) => {
-  res.send("This is admin Dashboard!");
-});
+mongoose
+  .connect("mongodb://localhost/todos", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("Database is connected");
+  })
+  .catch((err) => console.log(err));
 
-app.use("/admin", adminRoute);
-
-app.get("/user/:id", (req, res) => {
-  console.log(req.params.id);
-  res.send("Hello World");
-});
-
-app.post("/user", (req, res) => {
-  console.log(req.body.name);
-  res.send("Hello World Post!");
-});
+function errorHandler(err, req, res, next) {
+  if (res.headersSent) {
+    return next(err);
+  }
+  res.status(500).json({ error: err });
+}
 
 app.listen(1111, () => {
   console.log("Server is running Bro");
