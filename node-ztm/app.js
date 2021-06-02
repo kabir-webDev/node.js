@@ -1,9 +1,11 @@
 const express = require("express");
+const trigger = require("./compo/Indo");
 
 const app = express();
 const PORT = 1111;
-app.get("/", (req, res) => {
+app.use("/home", (trigger) => {
   res.send("This is coolest");
+  next();
 });
 
 app.listen(PORT, () => {
