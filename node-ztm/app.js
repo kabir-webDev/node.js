@@ -3,9 +3,24 @@ const trigger = require("./compo/Indo");
 
 const app = express();
 const PORT = 1111;
-app.use("/home", (trigger) => {
-  res.send("This is coolest");
-  next();
+
+const friends = [
+  {
+    id: 1,
+    name: "Kabir",
+  },
+  {
+    id: 2,
+    name: "Hasan",
+  },
+  {
+    id: 3,
+    name: "Sikder",
+  },
+];
+
+app.get("/", (req, res) => {
+  res.send(friends);
 });
 
 app.listen(PORT, () => {
