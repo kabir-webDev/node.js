@@ -19,10 +19,18 @@ const friends = [
   },
 ];
 
-app.get("/", (req, res) => {
+app.get("/friends", (req, res) => {
   res.send(friends);
 });
 
+app.get("/friends/:id", (req, res) => {
+  const id = Number(req.params.id);
+  const friend = friends[id];
+  friend
+    ? res.status(200).send(friend)
+    : res.status(404).json({ error: "404! Friend not found" });
+  console.log(friend.name);
+});
 app.listen(PORT, () => {
   console.log("App is up and running");
 });
