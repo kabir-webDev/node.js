@@ -3,8 +3,22 @@ const app = express();
 
 const PORT = 1111;
 
-app.get("/", (req, res) => {
+app.use(express.json());
+
+app.get("/user", (req, res) => {
   res.send("I'm Back Code World ... ☯️");
+});
+
+app.param("id", (req, res, next, id) => {
+  res.send(`${id} is being inputted`);
+});
+
+app.get("/user/:id", (req, res) => {
+  res.send("I'm Back Code World ... ☯️");
+});
+
+app.post("/", (req, res) => {
+  res.send("Post is Done bro");
 });
 
 app.listen(PORT, () => {
