@@ -19,6 +19,7 @@ app.get("/user/:id", (req, res) => {
 
 app.post("/", (req, res) => {
   res.send("Post is Done bro");
+  console.log(req.ip);
 });
 
 app.listen(PORT, () => {
