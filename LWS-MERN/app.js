@@ -9,17 +9,17 @@ app.get("/user", (req, res) => {
   res.send("I'm Back Code World ... ☯️");
 });
 
-app.param("id", (req, res, next, id) => {
-  res.send(`${id} is being inputted`);
-});
+// app.param("id", (req, res, next, id) => {
+//   res.send(`${id} is being inputted`);
+// });
 
-app.get("/user/:id", (req, res) => {
+app.get("/:id", (req, res) => {
   res.send("I'm Back Code World ... ☯️");
+  console.log(req.params.id);
 });
 
 app.post("/", (req, res) => {
   res.send("Post is Done bro");
-  console.log(req.ip);
 });
 
 app.listen(PORT, () => {
