@@ -13,13 +13,13 @@ app.get("/user", (req, res) => {
 //   res.send(`${id} is being inputted`);
 // });
 
-app.get("/:id", (req, res) => {
+app.get("/", (req, res) => {
   res.send("I'm Back Code World ... ☯️");
-  console.log(req.params.id);
 });
 
 app.post("/", (req, res) => {
-  res.send("Post is Done bro");
+  console.log(req.body);
+  res.json(req.body);
 });
 
 app.listen(PORT, () => {
