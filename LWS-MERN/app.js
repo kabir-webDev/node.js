@@ -1,25 +1,19 @@
 const express = require("express");
 const app = express();
-
 const PORT = 1111;
 
-app.use(express.json());
+const myMiddle = (req, res, next) => {
+  5 > 10 ? console.log("Before.") : console.log("After");
+  next();
+};
 
+app.get("/about", (req, res) => {
+  res.send("I'm Back Code World ... ☯️");
+});
+
+app.use(myMiddle);
 app.get("/user", (req, res) => {
   res.send("I'm Back Code World ... ☯️");
-});
-
-// app.param("id", (req, res, next, id) => {
-//   res.send(`${id} is being inputted`);
-// });
-
-app.get("/", (req, res) => {
-  res.send("I'm Back Code World ... ☯️");
-});
-
-app.post("/", (req, res) => {
-  console.log(req.body);
-  res.json(req.body);
 });
 
 app.listen(PORT, () => {
