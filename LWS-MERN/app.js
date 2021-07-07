@@ -1,32 +1,22 @@
 const express = require("express");
-const mongoose = require("mongoose");
-const todoHandler = require("./routeHandler/todoHandler");
-const PORT = 1111;
-
-//initialization of app
 const app = express();
-app.use(express.json());
+const router = express.Router();
 
-//database connection with mongoose
-mongoose
-  .connect("mongodb://localhost/task", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("Connection Successful"))
-  .catch((err) => console.log(err));
-
-app.use("/todo", todoHandler);
-app.get("/", (req, res) => {
-  res.send("Home");
+router.get("/*", (req, res) => {
+  res.send("Kabirul Hasan");
 });
-function errorHandler(err, req, res, next) {
-  if (res.headerSent) {
-    return next(err);
-  }
-  res.status(500).json({ error: err });
-}
 
-app.listen(PORT, () => {
-  console.log("I'm Backing you up Bro 😄");
+const data = (req, res, next) => {
+  res.myData = { myName: "Kabir" };
+  next();
+};
+
+app.use(router);
+
+app.get("/", (req, res) => {
+  res.send("This is Home");
+});
+
+app.listen(1111, () => {
+  console.log("Server is running");
 });

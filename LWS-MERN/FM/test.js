@@ -7,33 +7,18 @@ const connect = () => {
   });
 };
 
-const user = mongoose.Schema({
-  firstName: {
-    type: String,
-    required: true,
-  },
-  lastName: {
-    type: String,
-    required: true,
-  },
-  favFoods: [{ type: String }],
-  conNumber: {
-    type: Number,
-    required: true,
-  },
+const medicine = mongoose.Schema({
+  name: String,
+  brand: String,
+  price: Number,
+  validity: String,
 });
 
-const User = mongoose.model("user", user);
+const Medicine = mongoose.model("medicine", medicine);
 
 connect()
   .then(async (connection) => {
-    // const user = await User.create({
-    //   firstName: "Kabirul Hasan",
-    //   lastName: "Sikder",
-    //   favFoods: ["Khicuri", "Biriani"],
-    //   conNumber: 01763180249,
-    // });
-    const findUser = await User.findById("60e1f9e101854f0ccc6e4b02");
-    console.log(findUser);
+    const khuji = await Medicine.find({ name: "Napa" });
+    console.log(khuji);
   })
-  .catch((error) => console.log(error));
+  .catch((err) => console.log(err.message));
