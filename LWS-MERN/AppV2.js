@@ -32,9 +32,22 @@ run();
 // app.use("/data", findHandler, (req, res, next) => {
 //   console.log(req.data);
 // });
+
+const dataHandler = async (req, res) => {
+  // const doc = await RAK.find({}).exec();
+  // res.send(doc);
+  const poc = await RAK.findByIdAndUpdate("60e73b4d59d1f51cc48afd71", {
+    price: 799,
+  });
+  res.send("Update is done 😄 ");
+};
+
+app.use("/myData", dataHandler);
+
 app.get("/", async (req, res) => {
   const doc = await RAK.find({}).exec();
   res.send(doc);
+  res.send("Something");
 });
 
 app.post("/", async (req, res) => {
@@ -49,7 +62,7 @@ app.post("/", async (req, res) => {
 
 app.put("/", async (req, res) => {
   const poc = await RAK.findByIdAndUpdate("60e6ffeff2cbb328a0eb00ed", {
-    price: 599,
+    price: 799,
   });
   res.send("Update is done 😄 ");
 });
