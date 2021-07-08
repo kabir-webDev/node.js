@@ -18,20 +18,15 @@ const run = async () => {
     })
     .then(() => console.log("Connection Successful"))
     .catch((err) => console.log(err));
-  // const create = await RAK.create({
-  //   name: "Cinkara",
-  //   company: "Hamdard",
-  //   price: 120,
-  //   useFor: "Vitamin",
-  // });
+  const create = await RAK.create({
+    name: "Cinkara",
+    company: "Hamdard",
+    price: 120,
+    useFor: "Vitamin",
+  });
   const product = "60e7000c6fdd4822e8e3a1aa";
-  const findOut = await RAK.findByIdAndUpdate(
-    product,
-    {
-      name: "Sinkara",
-    },
-    { new: true }
-  ).exec();
-  console.log(findOut);
+  const deleteOne = await RAK.findByIdAndDelete(product).exec();
+  const findOne = await RAK.find({});
+  console.log(findOne);
 };
 run();
