@@ -1,4 +1,6 @@
+const express = require("express");
 const mongoose = require("mongoose");
+const app = express();
 
 const shelf1 = new mongoose.Schema({
   id: mongoose.Types.ObjectId,
@@ -18,15 +20,45 @@ const run = async () => {
     })
     .then(() => console.log("Connection Successful"))
     .catch((err) => console.log(err));
-  const create = await RAK.create({
-    name: "Cinkara",
-    company: "Hamdard",
-    price: 120,
-    useFor: "Vitamin",
-  });
-  const product = "60e7000c6fdd4822e8e3a1aa";
-  const deleteOne = await RAK.findByIdAndDelete(product).exec();
-  const findOne = await RAK.find({});
-  console.log(findOne);
+  // console.log(await RAK.find({}).exec());
 };
 run();
+
+// const findHandler = (RAK) => async (req, res, next) => {
+//   const doc = await RAK.find({}).exec();
+//   res.data = doc;
+//   next();
+// };
+// app.use("/data", findHandler, (req, res, next) => {
+//   console.log(req.data);
+// });
+app.get("/", async (req, res) => {
+  const doc = await RAK.find({}).exec();
+  res.send(doc);
+});
+
+app.post("/", async (req, res) => {
+  const poc = await RAK.create({
+    name: "Omiprazol",
+    company: "Orion",
+    price: 500,
+    useFor: "Acidity",
+  });
+  res.send("Post is done 😄 ");
+});
+
+app.put("/", async (req, res) => {
+  const poc = await RAK.findByIdAndUpdate("60e6ffeff2cbb328a0eb00ed", {
+    price: 599,
+  });
+  res.send("Update is done 😄 ");
+});
+
+app.delete("/", async (req, res) => {
+  const poc = await RAK.findByIdAndDelete("60e6ffeff2cbb328a0eb00ed");
+  res.send("Update is done 😄 ");
+});
+
+app.listen(1111, () => {
+  console.log("App is running with mongo");
+});
