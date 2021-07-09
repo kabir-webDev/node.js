@@ -3,13 +3,12 @@ const mongoose = require("mongoose");
 const app = express();
 
 const shelf1 = new mongoose.Schema({
-  id: mongoose.Types.ObjectId,
   name: String,
   company: String,
   price: Number,
   useFor: String,
 });
-
+app.use(express.json());
 const RAK = mongoose.model("medicine", shelf1);
 
 const run = async () => {
@@ -47,17 +46,21 @@ app.use("/myData", dataHandler);
 app.get("/", async (req, res) => {
   const doc = await RAK.find({}).exec();
   res.send(doc);
-  res.send("Something");
 });
 
 app.post("/", async (req, res) => {
-  const poc = await RAK.create({
-    name: "Omiprazol",
-    company: "Orion",
-    price: 500,
-    useFor: "Acidity",
+  const poc = new RAK(req.body);
+  await poc.save((err) => {
+    if (err) {
+      res.status(500).json({
+        error: "There is some kind of Error",
+      });
+    } else {
+      res.status(200).json({
+        message: "Booom Yay!!",
+      });
+    }
   });
-  res.send("Post is done 😄 ");
 });
 
 app.put("/", async (req, res) => {
@@ -68,8 +71,8 @@ app.put("/", async (req, res) => {
 });
 
 app.delete("/", async (req, res) => {
-  const poc = await RAK.findByIdAndDelete("60e6ffeff2cbb328a0eb00ed");
-  res.send("Update is done 😄 ");
+  const poc = await RAK.findByIdAndDelete("60e741ecff688f0e8c219afc");
+  res.send("Delete is done 😄 ");
 });
 
 app.listen(1111, () => {
